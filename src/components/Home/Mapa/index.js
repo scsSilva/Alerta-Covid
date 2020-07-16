@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, {useEffect, useContext, useState} from 'react';
 import {
   View,
   Text,
@@ -6,32 +6,33 @@ import {
   TouchableOpacity,
   ScrollView,
   Dimensions,
-} from "react-native";
-import MapView, { Marker } from "react-native-maps";
+} from 'react-native';
+import MapView, {Marker} from 'react-native-maps';
 
 import AsyncStorage from '@react-native-community/async-storage';
 
-import { Context } from "../../../context";
+import {Context} from '../../../context';
 
-let image = require("../../../../assets/images/logo.png");
+import api from '../../../services/api';
 
-import styles from "./style";
-import AntDesign from "react-native-vector-icons/AntDesign";
-import EvilIcons from "react-native-vector-icons/EvilIcons";
+let image = require('../../../../assets/images/logo.png');
+
+import styles from './style';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
 export default function Mapa(props) {
-  function deleteCaso() {
-    // const id = props.route.params.id;
-    // conexao.ref("Casos/" + id).set(null);
+  function deleteCaso(id) {
+    api.delete(`/delete_caso/${id}`).then(() => {
+      console.log('Caso deletado');
 
-    // props.navigation.navigate("Home");
+      props.navigation.navigate('Home');
+    });
   }
-
-  const { signed, doctor } = useContext(Context);
 
   const [id, setId] = useState('');
 
-  const altura = Dimensions.get("window").height;
+  const altura = Dimensions.get('window').height;
 
   useEffect(() => {
     async function getId() {
@@ -51,9 +52,8 @@ export default function Mapa(props) {
             <TouchableOpacity
               style={styles.menuImage}
               onPress={() => {
-                props.navigation.navigate("Home");
-              }}
-            >
+                props.navigation.navigate('Home');
+              }}>
               <AntDesign name="doubleleft" size={30} color="black" />
             </TouchableOpacity>
           </View>
@@ -64,59 +64,68 @@ export default function Mapa(props) {
           <View style={styles.bodyHeader}>
             <View style={styles.infoHeaderBody}>
               <Text style={styles.text}>
-                {" "}
+                {' '}
                 <Text style={styles.textBold}>Nome do Paciente: </Text>
                 {props.route.params.name}
               </Text>
 
               <Text style={styles.text}>
-                {" "}
-                <Text style={styles.textBold}>Data: </Text>{" "}
+                {' '}
+                <Text style={styles.textBold}>Data: </Text>{' '}
                 {props.route.params.data}
               </Text>
 
               <Text style={styles.text}>
-                {" "}
+                {' '}
                 <Text style={styles.textBold}>Hora: </Text>
                 {props.route.params.hora}
               </Text>
             </View>
 
-            {signed &&
-              id === props.route.params.idMedico && (
-                <View style={styles.icons}>
-                  <TouchableOpacity
-                    style={styles.icon}
-                    onPress={() => {
-                      props.navigation.navigate("update", {
-                        id: props.route.params.id,
-                      });
-                    }}
-                  >
-                    <View style={styles.icon}>
-                      <EvilIcons name="pencil" size={30} color="black" />
-                    </View>
-                  </TouchableOpacity>
+            {id == props.route.params.idMedico && (
+              <View style={styles.icons}>
+                <TouchableOpacity
+                  style={styles.icon}
+                  onPress={() => {
+                    props.navigation.navigate('update', {
+                      idCaso: props.route.params.id,
+                      idMedico: id,
+                      idLocal: props.route.params.idLocal,
 
-                  <TouchableOpacity
-                    style={styles.icon}
-                    onPress={() => {
-                      deleteCaso(props.id);
-                    }}
-                  >
-                    <View style={styles.icon}>
-                      <EvilIcons name="trash" size={30} color="black" />
-                    </View>
-                  </TouchableOpacity>
-                </View>
-              )}
+                      rua: props.route.params.rua,
+                      bairro: props.route.params.bairro,
+                      cidade: props.route.params.cidade,
+                      latitude: props.route.params.latitude,
+                      longitude: props.route.params.longitude,
+
+                      name: props.route.params.name,
+                      hora: props.route.params.hora,
+                      data: props.route.params.data,
+                    });
+                  }}>
+                  <View style={styles.icon}>
+                    <EvilIcons name="pencil" size={30} color="black" />
+                  </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={styles.icon}
+                  onPress={() => {
+                    deleteCaso(props.route.params.id);
+                  }}>
+                  <View style={styles.icon}>
+                    <EvilIcons name="trash" size={30} color="black" />
+                  </View>
+                </TouchableOpacity>
+              </View>
+            )}
           </View>
 
           <View style={styles.textMap}>
             <Text style={styles.text}>
-              {" "}
-              <Text style={styles.textBold}>Local:</Text>{" "}
-              {props.route.params.rua}, {props.route.params.bairro} -{" "}
+              {' '}
+              <Text style={styles.textBold}>Local:</Text>{' '}
+              {props.route.params.rua}, {props.route.params.bairro} -{' '}
               {props.route.params.cidade}
             </Text>
           </View>
@@ -128,8 +137,7 @@ export default function Mapa(props) {
               longitude: props.route.params.longitude,
               latitudeDelta: 0.004,
               longitudeDelta: 0.005,
-            }}
-          >
+            }}>
             <Marker
               coordinate={{
                 latitude: props.route.params.latitude,
@@ -142,9 +150,8 @@ export default function Mapa(props) {
         <View
           style={[
             styles.footer,
-            altura <= 640 ? { paddingBottom: 25 } : { paddingBottom: 0 },
-          ]}
-        >
+            altura <= 640 ? {paddingBottom: 25} : {paddingBottom: 0},
+          ]}>
           <Text style={styles.dev}>@Starts Technology</Text>
         </View>
       </View>

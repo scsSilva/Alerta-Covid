@@ -52,6 +52,8 @@ export default function PainelCasos(props) {
               latitude: props.lat,
               longitude: props.long,
 
+              idLocal: props.idLocal,
+
               id: props.idCaso,
               idMedico: props.idMedico,
               name: props.name,

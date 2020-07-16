@@ -18,10 +18,11 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { styles } from "./style";
 
 export default function CustomMenu(props) {
-  const { signed, setSignIn, setVisited, setDoctor } = useContext(Context);
+  const { signed, setSignIn, visited, setDoctor } = useContext(Context);
 
   const [token, setToken] = useState('');
   const [id, setId] = useState('');
+  const [loged, setLoged] = useState(null);
 
   async function logout() {
     await AsyncStorage.removeItem('@token_user');
@@ -88,7 +89,7 @@ export default function CustomMenu(props) {
         />
       </View>
 
-      {token != '' && id != '' && (
+      {!visited && (
         <View style={{ marginLeft: 10 }}>
           <Item
             routeName="Cadastrar Novo Caso"
@@ -96,21 +97,28 @@ export default function CustomMenu(props) {
           />
         </View>
       )}
-      {token === '' && id === '' && (
+      {visited && (
         <Text style={styles.labelLog}>
           Faça Login/Cadastro, para cadastrar um novo caso
         </Text>
       )}
       <View style={styles.viewBottom}>
-        {token != '' && id != '' && (
+        {!visited && (
           <TouchableOpacity onPress={() => logout()} style={styles.buttonExit}>
             <Text style={styles.labelExit}>Sair</Text>
           </TouchableOpacity>
         )}
-        {token === '' && id === '' && (
+        {visited && (
           <TouchableOpacity
             style={styles.buttonExit}
-            onPress={() => props.navigation.navigate("Login")}
+            onPress={() => props.navigation.dispatch(
+              CommonActions.reset({
+                index: 1,
+                routes: [
+                  {name: 'Login'}
+                ]
+              })
+            )}
           >
             <Text style={styles.labelExit}>Login</Text>
           </TouchableOpacity>

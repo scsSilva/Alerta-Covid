@@ -15,6 +15,8 @@ import opencage from "opencage-api-client";
 
 import axios from "axios";
 
+import api from '../../services/api';
+
 import { styles } from "./style";
 
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
@@ -23,26 +25,40 @@ import EvilIcons from "react-native-vector-icons/EvilIcons";
 export default function update(props) {
   const altura = Dimensions.get("window").height;
 
-  const [nome, setNome] = useState("");
+  const [nome, setNome] = useState(props.route.params.name);
+  const [hora, setHora] = useState(props.route.params.hora);
+  const [data, setData] = useState(props.route.params.data);
+
   const [uf, setUF] = useState("AL");
   const [cidade, setCidade] = useState("Maceió");
-  const [bairro, setBairro] = useState("");
-  const [rua, setRua] = useState("");
+  const [bairro, setBairro] = useState(props.route.params.bairro);
+  const [rua, setRua] = useState(props.route.params.rua);
 
   const [ufs, setUfs] = useState([]);
   const [cidades, setCidades] = useState([]);
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
 
-  const [id, setId] = useState(props.route.params.id);
+  const [idCaso, setIdCaso] = useState(props.route.params.idCaso);
+  const [idMedico, setIdMedico] = useState(props.route.params.idMedico);
+  const [idLocal, setIdLocal] = useState(props.route.params.idLocal);
 
   const [erroDados, setErroDados] = useState("");
 
   function retornar() {
+
+    setData("");
+    setHora("");
+
+    setIdLocal("");
+    setIdMedico("");
+    setIdCaso("");
+
     setUF("");
     setCidade("");
     setBairro("");
     setRua("");
+
     setLatitude("");
     setLongitude("");
     setNome("");
@@ -93,31 +109,10 @@ export default function update(props) {
       });
   }
 
-  async function updateCaso(
-    nome,
-    uf,
-    cidade,
-    bairro,
-    rua,
-    latitude,
-    longitude
-  ) {
+  async function updateCaso() {
     getLocation();
 
     try {
-      if (nome.length > 0) {
-        await conexao.ref("Casos/" + id + "/nomePaciente").set(nome);
-
-        setNome("");
-        setUF("AL");
-        setCidade("Maceió");
-        setBairro("");
-        setRua("");
-        setLatitude("");
-        setLongitude("");
-        setErroDados("");
-        props.navigation.navigate("Home");
-      }
       if (
         uf.length > 0 &&
         cidade.length > 0 &&
@@ -126,24 +121,48 @@ export default function update(props) {
         latitude != "" &&
         longitude != ""
       ) {
-        await conexao.ref("Casos/" + id + "/locais").set({
-          Bairro: bairro,
-          Cidade: cidade,
-          Estado: uf,
-          Rua: rua,
-          Latitude: latitude,
-          Longitude: longitude,
-        });
 
+        api.put('/update_caso', {
+
+          caso_id: idCaso,
+          nome_paciente: nome,
+          data_ocorrido: data,
+          hora_ocorrido: hora,
+
+          local_id: idLocal,
+          rua: rua,
+          bairro: bairro,
+          cidade: cidade,
+          uf: uf,
+
+          latitude: latitude,
+          longitude: longitude,
+
+          medico_id: idMedico
+        }).then( (response) => {
+          console.log(response);
+        })
+
+
+        setData("");
+        setHora("");
+
+        setIdLocal("");
+        setIdMedico("");
+        setIdCaso("");
+
+        setUF("");
+        setCidade("");
+        setBairro("");
+        setRua("");
+
+        setLatitude("");
+        setLongitude("");
         setNome("");
         setUF("AL");
         setCidade("Maceió");
-        setBairro("");
-        setRua("");
-        setLatitude("");
-        setLongitude("");
         setErroDados("");
-        setErroDados("");
+
         props.navigation.navigate("Home");
       }
       if (nome.length == 0 || bairro.length == 0 || rua.length == 0) {
@@ -274,7 +293,7 @@ export default function update(props) {
             <TouchableOpacity
               style={[styles.button, { marginLeft: 8 }]}
               onPress={() =>
-                updateCaso(nome, uf, cidade, bairro, rua, latitude, longitude)
+                updateCaso()
               }
             >
               <Text style={styles.textButton}>Enviar</Text>

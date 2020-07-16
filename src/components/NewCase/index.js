@@ -84,7 +84,9 @@ export default function CadCaso(props) {
       let id = await AsyncStorage.getItem('@id_user');
       let token = await AsyncStorage.getItem('@token_user');
 
-      setId(id);
+      let id_user = parseInt(id);
+
+      setId(id_user);
       setToken(token);
     }
 

@@ -37,10 +37,13 @@ export default function Home({navigation}) {
   const [txt, setTxt] = useState('');
 
   useEffect(() => {
-    api.get('casos').then((response) => {
+    async function getCasos() {
+      const response = await api.get('/casos');
+
       setCasos(response.data);
-      //console.log(casos);
-    });
+    }
+
+    getCasos();
   }, []);
 
   Animated.timing(largura, {
@@ -123,23 +126,21 @@ export default function Home({navigation}) {
               return index.toString();
             }}
             renderItem={({item}) => (
-              <>
-                <Text>{item.nome_paciente}</Text>
-                <PainelCasos
-                  idCaso={item.id}
-                  idMedico={item.medico_id}
-                  name={item.nome_paciente}
-                  hora={item.hora_ocorrido}
-                  dataCaso={item.data_ocorrido}
-                  rua={item.local.rua}
-                  bairro={item.local.bairro}
-                  cidade={item.local.cidade}
-                  estado={item.local.uf}
-                  nav={navigation}
-                  lat={item.local.latitude}
-                  long={item.local.longitude}
-                />
-              </>
+              <PainelCasos
+                idCaso={item.id}
+                idMedico={item.medico_id}
+                name={item.nome_paciente}
+                hora={item.hora_ocorrido}
+                dataCaso={item.data_ocorrido}
+                idLocal={item.local.id}
+                rua={item.local.rua}
+                bairro={item.local.bairro}
+                cidade={item.local.cidade}
+                estado={item.local.uf}
+                nav={navigation}
+                lat={item.local.latitude}
+                long={item.local.longitude}
+              />
             )}
           />
         </>
