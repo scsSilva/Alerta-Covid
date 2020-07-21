@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 
 const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#f4f4f4',
-    height: height
+    height: height,
   },
 
   header: {
@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
     marginBottom: 45,
     //backgroundColor: 'green',
     height: height * (50 / 100),
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
 
   footer: {
@@ -41,7 +41,7 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
     fontFamily: 'Roboto-Medium',
-    marginTop: 10
+    marginTop: 10,
   },
 
   viewForm: {
@@ -51,11 +51,11 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 5,
     marginBottom: 20,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
   },
 
   icon: {
-    marginLeft: 10
+    marginLeft: 10,
   },
 
   input: {
@@ -63,14 +63,14 @@ export const styles = StyleSheet.create({
     height: 50,
     marginLeft: 20,
     fontFamily: 'Roboto-Regular',
-    color: '#34495e'
+    color: '#34495e',
   },
 
   viewRemember: {
     justifyContent: 'space-between',
     flexDirection: 'row',
     marginTop: 10,
-    marginBottom: 20
+    marginBottom: 20,
   },
 
   labelRemember: {
@@ -105,18 +105,24 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#576574',
-    borderRadius: 5
+    borderRadius: 5,
   },
 
   labelCadastro: {
     fontFamily: 'Roboto-Regular',
     fontSize: 14,
-    marginRight: 5
+    marginRight: 5,
   },
 
   labelCadastroButton: {
     fontFamily: 'Roboto-Medium',
     fontSize: 14,
-    color: '#10ac84'
+    color: '#10ac84',
+  },
+
+  erro: {
+    textAlign: 'center',
+    color: '#1BC079',
+    marginBottom: 5,
   },
 });

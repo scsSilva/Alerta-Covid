@@ -150,12 +150,6 @@ export default function Login() {
               onChangeText={(text) => setSenha(text)}
             />
           </View>
-          <View style={styles.viewRemember}>
-            <Text style={styles.labelRemember}>Esqueceu a senha?</Text>
-            <TouchableOpacity>
-              <Text style={styles.labelButtonRemember}>Recuperar senha!</Text>
-            </TouchableOpacity>
-          </View>
 
           <View>
             <TouchableOpacity

@@ -1,24 +1,24 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, {useEffect, useState, useContext} from 'react';
 import {
   TouchableOpacity,
   Text,
   View,
   Image,
   StyleSheet,
-  TextInput
-} from "react-native";
-import AntDesign from "react-native-vector-icons/AntDesign";
+  TextInput,
+} from 'react-native';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
-import { Context } from "../../context";
+import {Context} from '../../context';
 
-import { CommonActions } from '@react-navigation/native';
+import {CommonActions} from '@react-navigation/native';
 
 import AsyncStorage from '@react-native-community/async-storage';
 
-import { styles } from "./style";
+import {styles} from './style';
 
 export default function CustomMenu(props) {
-  const { signed, setSignIn, visited, setDoctor } = useContext(Context);
+  const {signed, setSignIn, visited, setDoctor} = useContext(Context);
 
   const [token, setToken] = useState('');
   const [id, setId] = useState('');
@@ -33,11 +33,9 @@ export default function CustomMenu(props) {
     props.navigation.dispatch(
       CommonActions.reset({
         index: 1,
-        routes: [
-          {name: 'Login'}
-        ]
-      })
-    )
+        routes: [{name: 'Login'}],
+      }),
+    );
   }
 
   useEffect(() => {
@@ -66,7 +64,7 @@ export default function CustomMenu(props) {
     <>
       <View style={styles.header}>
         <Image
-          source={require("../../../assets/images/logo.png")}
+          source={require('../../../assets/images/logo.png')}
           style={styles.image}
         />
       </View>
@@ -75,25 +73,32 @@ export default function CustomMenu(props) {
         <Item
           routeName="Home"
           navigation={() => {
-            props.navigation.navigate("Home");
+            props.navigation.navigate('Home');
           }}
         />
 
         <Item
           routeName="Dúvidas Frequentes"
-          navigation={() => props.navigation.navigate("questions")}
+          navigation={() => props.navigation.navigate('questions')}
         />
         <Item
           routeName="Contato"
-          navigation={() => props.navigation.navigate("Contato")}
+          navigation={() => props.navigation.navigate('Contato')}
         />
       </View>
 
       {!visited && (
-        <View style={{ marginLeft: 10 }}>
+        <View style={{marginLeft: 10}}>
           <Item
             routeName="Cadastrar Novo Caso"
-            navigation={() => props.navigation.navigate("CadCaso")}
+            navigation={() =>
+              props.navigation.dispatch(
+                CommonActions.reset({
+                  index: 1,
+                  routes: [{name: 'CadCaso'}],
+                }),
+              )
+            }
           />
         </View>
       )}
@@ -111,15 +116,14 @@ export default function CustomMenu(props) {
         {visited && (
           <TouchableOpacity
             style={styles.buttonExit}
-            onPress={() => props.navigation.dispatch(
-              CommonActions.reset({
-                index: 1,
-                routes: [
-                  {name: 'Login'}
-                ]
-              })
-            )}
-          >
+            onPress={() =>
+              props.navigation.dispatch(
+                CommonActions.reset({
+                  index: 1,
+                  routes: [{name: 'Login'}],
+                }),
+              )
+            }>
             <Text style={styles.labelExit}>Login</Text>
           </TouchableOpacity>
         )}

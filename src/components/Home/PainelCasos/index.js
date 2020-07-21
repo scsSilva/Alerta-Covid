@@ -3,6 +3,8 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
+import {CommonActions} from '@react-navigation/native';
+
 import styles from './styles';
 
 export default function PainelCasos(props) {

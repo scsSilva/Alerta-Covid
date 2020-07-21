@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from 'react';
 import {
   KeyboardAvoidingView,
   Text,
@@ -8,44 +8,44 @@ import {
   TouchableOpacity,
   ScrollView,
   Picker,
-} from "react-native";
+} from 'react-native';
 
-import AntDesign from "react-native-vector-icons/AntDesign";
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
-import { CommonActions } from '@react-navigation/native';
+import {CommonActions} from '@react-navigation/native';
 
 import AsyncStorage from '@react-native-community/async-storage';
 
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
-import opencage from "opencage-api-client";
+import opencage from 'opencage-api-client';
 
-import axios from "axios";
+import axios from 'axios';
 
-import { styles } from "./style";
+import {styles} from './style';
 
-import api from "../../services/api";
+import api from '../../services/api';
 
 export default function CadCaso(props) {
   const [id, setId] = useState('');
-  
+
   const [token, setToken] = useState('');
 
-  const [nome, setNome] = useState("");
-  const [uf, setUF] = useState("AL");
-  const [cidade, setCidade] = useState("Maceió");
-  const [bairro, setBairro] = useState("");
-  const [rua, setRua] = useState("");
+  const [nome, setNome] = useState('');
+  const [uf, setUF] = useState('AL');
+  const [cidade, setCidade] = useState('Maceió');
+  const [bairro, setBairro] = useState('');
+  const [rua, setRua] = useState('');
 
-  const [hora, setHora] = useState("");
-  const [data, setData] = useState("");
+  const [hora, setHora] = useState('');
+  const [data, setData] = useState('');
 
   const [ufs, setUfs] = useState([]);
   const [cidades, setCidades] = useState([]);
-  const [latitude, setLatitude] = useState("");
-  const [longitude, setLongitude] = useState("");
+  const [latitude, setLatitude] = useState('');
+  const [longitude, setLongitude] = useState('');
 
-  const [error, setErro] = useState("");
+  const [error, setErro] = useState('');
 
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -73,8 +73,8 @@ export default function CadCaso(props) {
 
   const handleConfirmDate = (date) => {
     hideDatePicker();
-    let dia = date.getDate().toString().padStart(2, "0");
-    let mes = (date.getMonth() + 1).toString().padStart(2, "0");
+    let dia = date.getDate().toString().padStart(2, '0');
+    let mes = (date.getMonth() + 1).toString().padStart(2, '0');
     let ano = date.getFullYear();
     setData(`${dia}/${mes}/${ano}`);
   };
@@ -91,11 +91,11 @@ export default function CadCaso(props) {
     }
 
     getInfoDoctor();
-  })
+  });
 
   useEffect(() => {
     axios
-      .get("https://servicodados.ibge.gov.br/api/v1/localidades/estados")
+      .get('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
       .then((response) => {
         const ufsInitial = response.data.map((uf) => uf.sigla);
         setUfs(ufsInitial.sort());
@@ -105,7 +105,7 @@ export default function CadCaso(props) {
   useEffect(() => {
     axios
       .get(
-        `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`
+        `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`,
       )
       .then((response) => {
         const cityInitial = response.data.map((city) => city.nome);
@@ -118,7 +118,7 @@ export default function CadCaso(props) {
       opencage
         .geocode({
           q: `${rua}, ${bairro}, ${cidade}`,
-          key: "da9d4b50affb45a88c80ab0b87efb969",
+          key: 'da9d4b50affb45a88c80ab0b87efb969',
         })
         .then((data) => {
           if (data.status.code == 200) {
@@ -136,9 +136,9 @@ export default function CadCaso(props) {
   }
 
   async function cadastro1() {
-    setErro("Aguarde");
+    setErro('Aguarde');
     setTimeout(() => {
-      setErro("");
+      setErro('');
     }, 1000);
 
     let position = await getLocation();
@@ -156,7 +156,7 @@ export default function CadCaso(props) {
       hora,
       data,
       latitude1,
-      longitude1
+      longitude1,
     );
   }
 
@@ -170,7 +170,7 @@ export default function CadCaso(props) {
     hora,
     data,
     latitude,
-    longitude
+    longitude,
   ) {
     try {
       if (
@@ -180,50 +180,54 @@ export default function CadCaso(props) {
         cidade.length > 0 &&
         bairro.length > 0 &&
         rua.length > 0 &&
-        hora != "" &&
-        data != "" &&
-        latitude != "" &&
-        longitude != ""
+        hora != '' &&
+        data != '' &&
+        latitude != '' &&
+        longitude != ''
       ) {
         const config = {
           headers: {
             authorization: `Bearer ${token}`,
           },
         };
-        
-        await api.post('/create_caso', {
-          id,
-          nome_paciente: nome,
-          data_ocorrido: data,
-          hora_ocorrido: hora,
-          rua,
-          bairro,
-          cidade,
-          uf,
-          latitude,
-          longitude
-        }, config);
 
-        setNome("");
-        setBairro("");
-        setRua("");
+        await api.post(
+          '/create_caso',
+          {
+            id,
+            nome_paciente: nome,
+            data_ocorrido: data,
+            hora_ocorrido: hora,
+            rua,
+            bairro,
+            cidade,
+            uf,
+            latitude,
+            longitude,
+          },
+          config,
+        );
 
-        setId("");
+        setNome('');
+        setBairro('');
+        setRua('');
 
-        setHora("");
-        setData("");
+        setId('');
 
-        setLatitude("");
-        setLongitude("");
+        setHora('');
+        setData('');
 
-        setErro("");
-        
+        setLatitude('');
+        setLongitude('');
+
+        setErro('');
+
         props.navigation.navigate('Home');
         return true;
       } else {
-        setErro("Faltando dados para o cadastro!");
+        setErro('Faltando dados para o cadastro!');
         setTimeout(() => {
-          setErro("");
+          setErro('');
         }, 3000);
         return false;
       }
@@ -233,34 +237,32 @@ export default function CadCaso(props) {
   }
 
   function retornar() {
-    setUF("");
-    setCidade("");
-    setBairro("");
-    setRua("");
-    setLatitude("");
-    setLongitude("");
-    setNome("");
-    setUF("AL");
-    setCidade("Maceió");
-    setErro("");
+    setUF('');
+    setCidade('');
+    setBairro('');
+    setRua('');
+    setLatitude('');
+    setLongitude('');
+    setNome('');
+    setUF('AL');
+    setCidade('Maceió');
+    setErro('');
 
-    props.navigation.navigate("Home");
+    props.navigation.navigate('Home');
   }
 
   return (
     <KeyboardAvoidingView
       style={styles.container}
       behavior="padding"
-      keyboardVerticalOffset={-500}
-    >
+      keyboardVerticalOffset={-500}>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="always"
-      >
+        keyboardShouldPersistTaps="always">
         <View style={styles.content}>
           <View style={styles.header}>
             <Image
-              source={require("../../../assets/images/logo.png")}
+              source={require('../../../assets/images/logo.png')}
               style={styles.image}
             />
             <Text style={styles.titleHeader}>Cadastrar Novo Caso</Text>
@@ -285,8 +287,7 @@ export default function CadCaso(props) {
                 <Picker
                   mode="dialog"
                   selectedValue={uf}
-                  onValueChange={(itemValue) => setUF(itemValue)}
-                >
+                  onValueChange={(itemValue) => setUF(itemValue)}>
                   {ufs.map((uf) => (
                     <Picker.Item key={uf} label={uf} value={uf} />
                   ))}
@@ -299,8 +300,7 @@ export default function CadCaso(props) {
                 <Picker
                   mode="dialog"
                   selectedValue={cidade}
-                  onValueChange={(itemValue) => setCidade(itemValue)}
-                >
+                  onValueChange={(itemValue) => setCidade(itemValue)}>
                   {cidades.map((cidade) => (
                     <Picker.Item key={cidade} label={cidade} value={cidade} />
                   ))}
@@ -333,7 +333,7 @@ export default function CadCaso(props) {
               <TouchableOpacity style={styles.btnTime} onPress={showTimePicker}>
                 <AntDesign name="clockcircleo" size={24} color="#07031a" />
                 <Text style={styles.labelBtnTime}>
-                  {hora != "" ? hora : "Definir hora"}
+                  {hora != '' ? hora : 'Definir hora'}
                 </Text>
               </TouchableOpacity>
               <DateTimePickerModal
@@ -347,7 +347,7 @@ export default function CadCaso(props) {
               <TouchableOpacity style={styles.btnTime} onPress={showDatePicker}>
                 <AntDesign name="calendar" size={24} color="#07031a" />
                 <Text style={styles.labelBtnTime}>
-                  {data != "" ? data : "Definir data"}
+                  {data != '' ? data : 'Definir data'}
                 </Text>
               </TouchableOpacity>
               <DateTimePickerModal
@@ -365,11 +365,10 @@ export default function CadCaso(props) {
             <Text style={styles.labelButton}>Cadastrar</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[styles.button, { backgroundColor: "#e74c3c" }]}
+            style={[styles.button, {backgroundColor: '#e74c3c'}]}
             onPress={() => {
               retornar();
-            }}
-          >
+            }}>
             <Text style={styles.textButton}>Cancelar</Text>
           </TouchableOpacity>
         </View>

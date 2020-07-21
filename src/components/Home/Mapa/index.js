@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 
+import {CommonActions} from '@react-navigation/native';
+
 import AsyncStorage from '@react-native-community/async-storage';
 
 import {Context} from '../../../context';
@@ -26,7 +28,12 @@ export default function Mapa(props) {
     api.delete(`/delete_caso/${id}`).then(() => {
       console.log('Caso deletado');
 
-      props.navigation.navigate('Home');
+      props.navigation.dispatch(
+        CommonActions.reset({
+          index: 1,
+          routes: [{name: 'Home'}],
+        }),
+      );
     });
   }
 
@@ -45,7 +52,7 @@ export default function Mapa(props) {
   }, []);
 
   return (
-    <ScrollView>
+    <ScrollView style={{flex: 1, backgroundColor: '#fff'}}>
       <View style={styles.container}>
         <View style={styles.header}>
           <View style={styles.viewMenu}>
@@ -122,12 +129,22 @@ export default function Mapa(props) {
           </View>
 
           <View style={styles.textMap}>
-            <Text style={styles.text}>
-              {' '}
-              <Text style={styles.textBold}>Local:</Text>{' '}
-              {props.route.params.rua}, {props.route.params.bairro} -{' '}
-              {props.route.params.cidade}
-            </Text>
+            <View>
+              <Text style={styles.text}>
+                {' '}
+                <Text style={styles.textBold}>Local:</Text>{' '}
+                <Text>{props.route.params.rua}</Text>
+              </Text>
+              <Text style={styles.text}>
+                {' '}
+                <Text>Bairro: {props.route.params.bairro}</Text>
+              </Text>
+
+              <Text style={styles.text}>
+                {' '}
+                <Text>Cidade: {props.route.params.cidade}</Text>
+              </Text>
+            </View>
           </View>
 
           <MapView

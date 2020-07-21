@@ -36,11 +36,15 @@ export default function Home({navigation}) {
   const [text, setText] = useState(new Animated.Value(0));
   const [txt, setTxt] = useState('');
 
+  const [qtde, setQtde] = useState('');
+
   useEffect(() => {
     async function getCasos() {
       const response = await api.get('/casos');
 
       setCasos(response.data);
+
+      setCasosFixos(response.data);
     }
 
     getCasos();
@@ -51,23 +55,32 @@ export default function Home({navigation}) {
     duration: 400,
   }).start();
 
-  function filtrarCasos() {
-    let resultado = search.split(/\s*,\s*/);
-    let estado = resultado[0].toUpperCase();
-    let cidade = resultado[1].toUpperCase();
+  async function filtrarCasos() {
+    if (search != '') {
+      let resultado = search.split(/\s*,\s*/);
+      let estado = resultado[0];
+      let cidade = resultado[1];
 
-    let casosFiltrados = casosFixos.filter((casos) => {
-      if (
-        casos.locais.Estado.toUpperCase() === estado &&
-        casos.locais.Cidade.toUpperCase() === cidade
-      ) {
-        return true;
+      const response = await api.post('/casos_forCidade', {
+        cidade: cidade,
+        uf: estado,
+      });
+
+      console.log(response.data);
+      if (response.data.length === 0) {
+        setCasos(casosFixos);
+        setQtde('Nenhum caso encontrado');
+        setTimeout(() => {
+          setQtde('');
+        }, 3000);
       } else {
-        return false;
+        setCasos(response.data);
+        setQtde(`${response.data.length} casos encontrados`);
       }
-    });
-
-    setCasos(casosFiltrados);
+    } else {
+      setQtde('');
+      setCasos(casosFixos);
+    }
   }
 
   return (
@@ -89,7 +102,7 @@ export default function Home({navigation}) {
           <View style={styles.viewLoad}>
             <Animated.View
               style={{
-                width: largura.toValue,
+                width: largura,
                 height: 5,
                 backgroundColor: '#1dd1a1',
                 borderRadius: 20,
@@ -118,6 +131,11 @@ export default function Home({navigation}) {
               <Ionicons name="ios-search" size={24} color="#393e46" />
             </TouchableOpacity>
           </View>
+          {qtde != '' && (
+            <View>
+              <Text style={styles.txtQtde}>{qtde}</Text>
+            </View>
+          )}
           <FlatList
             style={styles.list}
             showsVerticalScrollIndicator={false}
