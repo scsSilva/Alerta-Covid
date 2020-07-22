@@ -12,9 +12,12 @@ Você pode acessar os casos de covid-19 de qualquer lugar.
 [Sallys Carlos](https://github.com/scsSilva) | 
  
 ### Como funciona o app :interrobang:
+Você poderá acessar os locais (dos últimos 5 dias antes de ser diagnosticadas) que as pessoas infectadas percorreram. Assim, você poderá evitar os mesmos.
+Ao abrir o App, você será perguntado se é medico ou visitante. Se for visitante, você poderá ver os casos, caso seja médico poderá cadastrar novos casos. Dentre outras funcionalidades. Baixe e teste!!!!
 ### Baixe aqui
+[Alerta Covid versão 1.0.5](https://drive.google.com/file/d/1t6firgQTVsma88AFtUwEXSJV3_asru-B/view?usp=sharing)
 ### Última atualização :clock130:
-07/07/2020
+21/07/2020
 ### Dependências e Libs Utilizadas :books:
 - expo-google-fonts/dev : "^0.1.0"
 - react-native-community/datetimepicker : "2.4.0"
