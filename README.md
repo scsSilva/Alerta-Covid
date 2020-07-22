@@ -16,7 +16,7 @@ Você pode acessar os casos de covid-19 de qualquer lugar.
 Você poderá acessar os locais que as pessoas infectadas percorreram/ onde residem. Assim, você poderá evitar os mesmos.
 Ao abrir o App, você será perguntado se é medico ou visitante. Se for visitante, você poderá ver os casos, caso seja médico poderá cadastrar novos casos. Dentre outras funcionalidades. Baixe e teste!!!!
 ### Baixe aqui
-[Baixe aqui](https://drive.google.com/file/d/1t6firgQTVsma88AFtUwEXSJV3_asru-B/view?usp=sharing)
+[Baixe aqui!](https://drive.google.com/file/d/1t6firgQTVsma88AFtUwEXSJV3_asru-B/view?usp=sharing)
 ### Última atualização :clock130:
 21/07/2020
 ### Dependências e Libs Utilizadas :books:
