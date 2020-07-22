@@ -1,7 +1,7 @@
 <img align="center" src="/logoIndex.png">
 
 ### Descrição
-App que alerta sobre novos casos em determinada região, desenvolvido com ReactNative e Firebase;
+App que alerta sobre novos casos em determinada região, desenvolvido com ReactNative;
 Você pode acessar os casos de covid-19 de qualquer lugar.
 
 ### Status: Concluído :heavy_check_mark:
@@ -15,11 +15,10 @@ Você pode acessar os casos de covid-19 de qualquer lugar.
 Você poderá acessar os locais (dos últimos 5 dias antes de ser diagnosticadas) que as pessoas infectadas percorreram. Assim, você poderá evitar os mesmos.
 Ao abrir o App, você será perguntado se é medico ou visitante. Se for visitante, você poderá ver os casos, caso seja médico poderá cadastrar novos casos. Dentre outras funcionalidades. Baixe e teste!!!!
 ### Baixe aqui
-[Alerta Covid versão 1.0.5](https://drive.google.com/file/d/1t6firgQTVsma88AFtUwEXSJV3_asru-B/view?usp=sharing)
+[Baixe aqui](https://drive.google.com/file/d/1t6firgQTVsma88AFtUwEXSJV3_asru-B/view?usp=sharing)
 ### Última atualização :clock130:
 21/07/2020
 ### Dependências e Libs Utilizadas :books:
-- expo-google-fonts/dev : "^0.1.0"
 - react-native-community/datetimepicker : "2.4.0"
 - react-native-community/masked-view :  "0.1.10"
 - react-navigation/drawer : "^5.8.2"
@@ -27,11 +26,6 @@ Ao abrir o App, você será perguntado se é medico ou visitante. Se for visitan
 - react-navigation/stack : "^5.5.1"
 - axios : "^0.19.2" 
 - dotenv : "^8.2.0"
-- expo : "^38.0.0" 
-- expo-constants : "~9.1.1"
-- expo-font : "~8.2.1"
-- expo-mail-composer : "~8.2.1" 
-- firebase : "7.9.0" 
 - opencage-api-client : "^0.7.1" 
 - react : "16.11.0" 
 - react-dom : "16.11.0",
