@@ -23,49 +23,7 @@ export default function Questions() {
         <PainelQuestion
           titleQuestion={'São dados Oficiais?'}
           text={
-            'Sim, os dados são cadastrados pelos médicos responsáveis pelo caso informado, e os mesmos são confirmados pelos orgãos oficiais do governo'
-          }
-        />
-
-        <PainelQuestion
-          titleQuestion={'São dados Oficiais?'}
-          text={
-            'Sim, os dados são cadastrados pelos médicos responsáveis pelo caso informado, e os mesmos são confirmados pelos orgãos oficiais do governo'
-          }
-        />
-
-        <PainelQuestion
-          titleQuestion={'São dados Oficiais?'}
-          text={
-            'Sim, os dados são cadastrados pelos médicos responsáveis pelo caso informado, e os mesmos são confirmados pelos orgãos oficiais do governo'
-          }
-        />
-
-        <PainelQuestion
-          titleQuestion={'São dados Oficiais?'}
-          text={
-            'Sim, os dados são cadastrados pelos médicos responsáveis pelo caso informado, e os mesmos são confirmados pelos orgãos oficiais do governo'
-          }
-        />
-
-        <PainelQuestion
-          titleQuestion={'São dados Oficiais?'}
-          text={
-            'Sim, os dados são cadastrados pelos médicos responsáveis pelo caso informado, e os mesmos são confirmados pelos orgãos oficiais do governo'
-          }
-        />
-
-        <PainelQuestion
-          titleQuestion={'São dados Oficiais?'}
-          text={
-            'Sim, os dados são cadastrados pelos médicos responsáveis pelo caso informado, e os mesmos são confirmados pelos orgãos oficiais do governo'
-          }
-        />
-
-        <PainelQuestion
-          titleQuestion={'São dados Oficiais?'}
-          text={
-            'Sim, os dados são cadastrados pelos médicos responsáveis pelo caso informado, e os mesmos são confirmados pelos orgãos oficiais do governo'
+            'Não. Aplicativo voltado para a prática do desenvolvimento de programação. Não temos nenhum vínculo com o governo.'
           }
         />
       </ScrollView>
