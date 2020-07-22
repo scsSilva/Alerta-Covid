@@ -13,7 +13,7 @@ Você pode acessar os casos de covid-19 de qualquer lugar.
 ### Repositório de Back-end
 [Acesse aqui](https://github.com/LuizCarlosVilela/backend)
 ### Como funciona o app :interrobang:
-Você poderá acessar os locais (dos últimos 5 dias antes de ser diagnosticadas) que as pessoas infectadas percorreram. Assim, você poderá evitar os mesmos.
+Você poderá acessar os locais que as pessoas infectadas percorreram/ onde residem. Assim, você poderá evitar os mesmos.
 Ao abrir o App, você será perguntado se é medico ou visitante. Se for visitante, você poderá ver os casos, caso seja médico poderá cadastrar novos casos. Dentre outras funcionalidades. Baixe e teste!!!!
 ### Baixe aqui
 [Baixe aqui](https://drive.google.com/file/d/1t6firgQTVsma88AFtUwEXSJV3_asru-B/view?usp=sharing)
